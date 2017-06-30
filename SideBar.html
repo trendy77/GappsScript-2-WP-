@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="sidebarApp">
+<head>
+  <base target="_top">
+  <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intercom.js/0.1.4/intercom.min.js"></script>
+</head>
+<body ng-controller="SidebarController as sidebar">
+  <div ng-show="!sidebar.isSignedIn">
+    <p>Please sign in to your WP account to continue.</p>
+    <button ng-click="sidebar.signIn()">Sign in</button>
+  </div>
+  <div ng-show="sidebar.isSignedIn">
+    <div>
+      <p>Hello {{sidebar.user.login || '...' }}</p>
+      <button ng-click="sidebar.signOut()">Sign out</button>
+    </div>
+    <p>Repos:</p>
+    <li ng-repeat="repo in sidebar.repos">
+      <a href="{{repo.html_url}}">{{repo.name}}</a> ({{repo.stargazers_count}} stars, {{repo.forks_count}} forks)
+    </li>
+  </div>
+  
+  <script>
+    var email = '<?= email ?>';
+    var isSignedIn = '<?= isSignedIn ?>' == 'true';
+  </script>
+  <?!= include('JavaScript') ?>
+</body>
+</html>
