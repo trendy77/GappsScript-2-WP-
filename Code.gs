@@ -1,40 +1,30 @@
-// overview of the .gs files in this project....
+var ckwwLIVE = '1NhyycmyuW-EQmBK6IuvRzDYknD2ubDZxj9sDJ1qG3zs';
+var vaLIVE= '1brr5Dlu1NCXkqdJgVLn5-a7aZSmO_iA2XCH9EtQ4Jqg'; 
+var govLIVE = '1Ms2LnTd6N4GNRWqXkRT3JC2jjmbkqZLIHWkxAZ8LwwY';
+var fnrLIVE = '1MeOzGG65z6lChkRfd5tgxIWyRaLPZsZGc868Awpf0vw';
+var orgbizLIVE = '1PbbruGcceDl6M8xWsXWPom1TB5YmyzcQoKNeNm-XoaQ';
+var gloLIVE = '1Tfa6h1bgQGsUkLlg97U9O6Rgm9hFkGRm-TivECEzo_g';
 
-/// SHEET CHECK FIND SCRIPT SCRIPT
-     // vars --- OV_SHEETID ---- ALLSHEET
-//function------fileChecker() 
-//function dupeIt(ssid)   
-//function getALLfiveLines(){
-  //function AUTOJUNEfiledupCheck(ssid)
+function setup(){
+var userProperties = PropertiesService.getUserProperties();
+var ss = SpreadsheetApp.getActiveSpreadsheet(); 
+  var newProperties = {ckwwLIVE: ckwwLIVE, orgbizLIVE: orgbizLIVE, vaLIVE: vaLIVE, fnrLIVE:fnrLIVE, govLIVE:govLIVE, gloLIVE:gloLIVE};
+ userProperties.setProperties(newProperties);
+}
 
-// SENDER SCRIPT
-     //vars LASTLIVE----- OV_SHHFNR  ------  URLTOSEND 
- //function checkLive() {
- //function sendLine() {
-//function refill(line){
-//function ref(line){   
-//function ezTranslateNsave(ID, title, content, cat, tags, img) 
+function update(){
+   var list = (['ckwwLIVE', 'orgbizLIVE', 'vaLIVE', 'fnrLIVE', 'govLIVE', 'gloLIVE']);
+  for (var t =0;t<5;t++){
+    var tt = list[t];
+    Logger.log(tt);
+var userProperties = PropertiesService.getUserProperties();
+var nr = userProperties.getProperty(tt);
+var fnr = SpreadsheetApp.openById(nr);
+var fnrss = fnr.getSheetByName('live');
+   var ss = SpreadsheetApp.openById('1_RF1gLXInLB-INcsLuuwVCTtLrMqFvOhjdUHftbqGVk'); 
+   var sheet5 = ss.getSheetByName('live');
+  var rangeToCopy = fnrss.getRange(1, 1, 30, 8).getValues();
+ var oCopy = sheet5.getRange(1, 1, 30, 8).setValues(rangeToCopy);
+  }
 
- 
-//UI SCRIPT
-//function reset(){
-//function onInstall
-//function onOpen()
-//function isCellEmpty(cellData) 
-//function dupUI(){
-//function IDUI(){
-// and idcheck -- - checks id of active sheet 
-
-
-// TFSORT/
-//function fileFindr()
-//function dupLIVEcheck(){
-    // Duplicate Check
-//function duprCheck(){
-    // runs for MAX_ROWS
-     // Duplicate Check of sheet PARAM
-//function hideContentCol(id){
- 
-//function AUTOCheck(ssid){
-    // PROVIDE A SHEET ID, THIS WILL RUN DUPLICATE CHECK
-        // --> RETURNS:  LINES, tagged, NOTTAGGED, n/a-tagged, dupe or 0
+}
