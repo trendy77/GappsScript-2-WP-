@@ -1,0 +1,108 @@
+
+function fileInterateTP(){
+  var t1 = startClock('fileIterate');
+var overview = SpreadsheetApp.openById('1JIk3NlUVH300FRxUfUEXSDyYht_CyU5bZp1M8WQ9ET4'); 
+var newSH = overview.getSheetByName("MASTER");
+  newSH.clearContents();
+  var files = DriveApp.searchFiles('mimeType = "' + MimeType.GOOGLE_SHEETS + '"'); 
+  // FOR ALL DRIVE SPREADSHEETS 
+  var line =0; 
+  while (files.hasNext()) {
+    var file = files.next();
+  var nam = file.getName();var ssid = file.getId();
+   var url = file.getUrl();line++;
+   
+     //         var dupe =  AUTOfiledupCheck(url); 
+      //         Logger.log(dupe);
+    //if (boo == 'NEW'){
+   newSH.appendRow([[nam,ssid,url]]);
+     //   } else {
+  // newSH.getRange(line,4,1,4).setValues([[dupe[0],dupe[1],dupe[2],dupe[3]]]);
+   //}
+  // Logger.log('one down');
+ timeChk(t1);   
+ }
+stopClk(t1);
+}
+
+  // CHECKS IF THE FILE IS IN THE LIST, RETURNS 'T' - line#   OR   0 
+function AUTOcheckItTP(spreadsheet){
+ var overview = SpreadsheetApp.openById('1JIk3NlUVH300FRxUfUEXSDyYht_CyU5bZp1M8WQ9ET4'); 
+ var newSH = overview.getSheetByName("MASTER"); 
+ Logger.log('ssid is ' + spreadsheet);
+ var check = newSH.getRange(1, 2, newSH.getLastRow(), 1).getValues();
+for (var t = 0; t<=newSH.getLastRow();t++){
+  var whatAbbDisOne = check[t];      
+  Logger.log('wat abbouDis? ' + check[t]);
+  if (spreadsheet != whatAbbDisOne){
+      if (t == newSH.getLastRow()){
+        return 'NEW';
+        }
+        } else {
+         return t;
+     }
+    } 
+  }
+
+  
+// DUPE CHECK 4 LINES
+function TIMRMASTRfeedrTP(){
+var t1 = startClock('feedrTP');
+ //// how many sheets to run DUPECHECK on??
+      var numRw = 1;
+       //////
+var overview = SpreadsheetApp.getActiveSpreadsheet();
+  var livesh = overview.getSheetByName("MASTER");	
+  var uptoSpot = livesh.getRange('H1');
+  var uptoFig = uptoSpot.getValue(); var nextUp = uptoFig++; uptoSpot.setValue(uptoFig);
+     if ((!uptoFig) || (uptoFig ==1)){         // at the end of the sheet list...
+           uptoFig = 2;
+           }
+// get sheet ID... from H1.    
+    var sheetTarg = livesh.getRange(uptoFig,2,numRw,1).getValues();  
+    for (v in sheetTarg){
+       
+      // do dupe check ...
+      var diff = AUTOfiledupCheck(sheetTarg[v]); 
+         var preDiff = livesh.getRange(uptoFig,3,1,1).getValue();
+          var totDiff = preDiff + diff;
+          var vals = [[diff,totDiff]];
+          livesh.getRange(uptoFig,3,1,2).setValues(vals);
+
+      var len=timeChk(t1);
+      jotDwn('finishing dupe now to num/tag...' +len);
+var results= AUTOcheckNumNTags(sheetTarg[v]);
+     var len=timeChk(t1);
+      jotDwn('finishing up num/tag...' +len);
+      scribe(results);
+     }
+   stopClk(t1);
+}
+
+function AUTOfiledupCheck(nam){
+    var spreadsheet = SpreadsheetApp.openByUrl(nam);
+  var sheet = spreadsheet.getSheetByName("Sheet1");
+  var data = sheet.getDataRange().getValues();
+  var lines = 0;var diff=0;
+  var newData = new Array();
+  for(i in data){
+    var row = data[i];
+    var duplicate = false;
+    for(j in newData){
+     if(row[0] == newData[j][0] && row[1] == newData[j][1]){
+  duplicate = true; diff++;
+   }    }
+    if(!duplicate){
+   newData.push(row);lines++;
+      if(isCellEmpty(row[1])){
+   row[1]='[embedlyt]'+row[2]+'[/embedlyt]<br>';
+   }
+  }  }
+  sheet.clearContents();
+  sheet.getRange(1, 1, newData.length, newData[0].length).setValues(newData);
+  var res11 = (['diff',diff, 'linesRem',lines]);
+  return (res11);
+}
+function isCellEmpty(cellData) {
+  return typeof(cellData) == "string" && cellData == "";
+}

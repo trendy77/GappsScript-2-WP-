@@ -1,9 +1,13 @@
 
-function staMPLT(siteId,ssid){
-var ss = SpreadsheetApp.openById(ssid);
-   sheetSet(ssid);
+function startTMPLT(line,id){
+var ss = SpreadsheetApp.openById(id);
+  if (ss.getSheetByName("Sheet5")){ 
+    return; 
+  } else {
+var sheet = ss.getSheetByName("Sheet1"); 
+ sheetSet(id);
   
-  if( siteId == 'fnr'){
+  if( line == 2){
     fnr(line);
 } if (line == 3){
   ckww(line);
@@ -24,7 +28,7 @@ var ss = SpreadsheetApp.openById(ssid);
             tp(line);
           }
 }
-
+}
 
 
 function ckwwes(index){
@@ -107,11 +111,11 @@ var suc=0; var fail=0; var sent=0; var tagged=0; var notTagged=0;
   return line;
 }
 
-function sheetSet(ssid) {
+function sheetSet(id) {
  //gets Prev sheet from Overview Doc
  var url = 'https://docs.google.com/spreadsheets/d/1JIk3NlUVH300FRxUfUEXSDyYht_CyU5bZp1M8WQ9ET4/edit#gid=0';
    var ov= SpreadsheetApp.openByUrl(url);
-      var sum= SpreadsheetApp.openById(ssid);
+      var sum= SpreadsheetApp.openById(id);
 //in overview, creates named sheet and sends to itself
      var cop =sum.getSheetByName("Sheet2");
   if(!cop){
@@ -136,9 +140,22 @@ function sheetSet(ssid) {
 return;
   }
 
+
 //////   start ---> strtTEMPLT(line,id)  ----> sheetset(id of sheet)  ----->duplisheet ---->
 
-function start(siteId,ssid){
-   var ov= SpreadsheetApp.openById(ssid);
-startTMPLT(siteId,ssid);
+
+function start(){
+var t1 = startClock('start'); 
+  var url = 'https://docs.google.com/spreadsheets/d/1JIk3NlUVH300FRxUfUEXSDyYht_CyU5bZp1M8WQ9ET4/edit#gid=0';
+   var ov= SpreadsheetApp.openByUrl(url);
+     var dest = ov.getSheetByName("LIVE");
+var range = dest.getRange(2, 3,7,1).getValues();
+
+  for (var rr = 0;rr>6;rr++){
+    var id = range[rr];
+var line = rr+1;   
+ startTMPLT(line,id);
+ timeChk(t1);
+}
+stopClk(t1);
 }

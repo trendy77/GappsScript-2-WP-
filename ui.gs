@@ -1,9 +1,12 @@
+//RESET:: RESPONSES AND SUCCESS/FAILS COUNTERS
+// ON OPEN / ON INSTALL - ADD UI FOR SHEET
 
 function reset(){
-    // DELETE TALLY....
-  var overview = SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1_RF1gLXInLB-INcsLuuwVCTtLrMqFvOhjdUHftbqGVk'); 
-  var newSH = overview.getSheetByName('live');
- 
+// FIRST DELETE ALL CURRENT TALLY....
+  var overview = SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1JIk3NlUVH300FRxUfUEXSDyYht_CyU5bZp1M8WQ9ET4/edit'); 
+  var newSH = overview.getSheetByName("LIVE");
+  var uptoSpot = newSH.getRange(2,21,8,newSH.getMaxColumns())
+    uptoSpot.clearContent(); 
   // RESET THE COUNTERS...
   var winLoss = newSH.getRange(2,18,8,3);
     winLoss.clearContent(); 
@@ -16,20 +19,11 @@ start();onOpen();
 
 function onOpen() {
  SpreadsheetApp.getUi().createMenu('TrenDupChk')
- .addItem('fileFindr', 'fileFindr').addItem('Dupe', 'duprCheck').addItem('run', 'sendLine').addItem('send', 'sendLine')
-.addItem('get infoALL', 'getALLfiveLines')
- .addItem('dupLIVEcheck', 'dupLIVEcheck').addItem('reset', 'reset')  //.addItem('spanFromEngSheet', 'eZtranslate')
+ .addItem('iterate on MASTERTP', 'fileInterateTP').addItem('feedrTP(4x dupecheck MSTR)', 'TIMRMASTRfeedrTP').addItem('start', 'start')
+.addItem('getALL 5 Lines', 'getALLfiveLines')
+ .addItem('dupLIVEcheck', 'dupLIVEcheck').addItem('reset', 'reset').addItem('sendLine', 'sendLine')
   .addToUi();
 }
-
- function onEdit(e){
-  // IF line has been sent , the refill
-  var range = e.values;
- 
-  Logger.log(  range.values[3] );
-}
-
-
   
 // Returns true if the cell where cellData was read from is empty.
 // Arguments:
