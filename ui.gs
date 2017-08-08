@@ -22,26 +22,25 @@ start();onOpen();
 }
 
 function onOpen() {
- SpreadsheetApp.getUi().createMenu('TrenDupChk').addItem('ID checkUI', 'IDUI') .addItem('dupUI', 'dupUI') .addItem('linerefill', 'linerefill')
- .addSeparator().addItem('getAllfivelines', 'getALLfiveLines').addItem('duprCheck', 'duprCheck') .addItem('checkLive', 'checkLive')
- .addSeparator().addItem('SENDLine', 'sendLine')
-.addItem('reset', 'reset').addItem('uiFoldFile', 'uiFoldFile').addItem('fileFindr', 'fileFindr')
-.addItem('dupLIVEcheck', 'dupLIVEcheck').addToUi();
+ SpreadsheetApp.getUi().createMenu('TrenDupChk').addItem('ID checkUI', 'IDUI').addItem('duprCheck', 'duprCheck').addItem('run/SENDLine', 'sendLine').addItem('getAllfivelines', 'getALLfiveLines')
+ .addItem('dupUI', 'dupUI').addItem('reset', 'reset') .addItem('linerefill', 'linerefill').addItem('uiFoldFile', 'uiFoldFile').addItem('checkLive', 'checkLive')
+.addItem('dupLIVEcheck', 'dupLIVEcheck').addItem('duprCheck', 'duprCheck') .addToUi();
 }
   
 function linerefill() {
    var ui = SpreadsheetApp.getUi();
- var response = SpreadsheetApp.getActiveSheet();
-
-   for (var r=2;r<=LASTLIVE;r++){
-var res = ref(r);
-     var nextSht = SpreadsheetApp.openById(res);
-     var name = nextSht.getName();var url = nextSht.getUrl();
-     var tthhh = ([name,url]);
-       var the = response.getRange(r, 1,1,2).setValues([tthhh]); 
- }  
- }
-
+ var response = SpreadsheetApp.getActiveRange();
+  ui.prompt('doing now'); ///, ui.ButtonSet.YES_NO);
+ // Process the user's response.
+// if (response.getSelectedButton() == ui.Button.YES) {
+//var resyy = response.getResponseText();
+//     var resfill = ref(resyy);
+/// } else if (response.getSelectedButton() == ui.Button.NO) {
+//   for (var r=2;r<=LASTLIVE;r++){
+  //var lin= r; var res = lin(r);
+// }  
+ 
+}
 
 // Returns true if the cell where cellData was read from is empty.
 // Arguments:
@@ -82,7 +81,6 @@ var res = AUTOJUNEfiledupCheck(response.getResponseText());
 function idcheck(){
     var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
 var id = spreadsheet.getId();
-  Logger.log(id);
   var res11 = ([id]);
      return (res11);
 }

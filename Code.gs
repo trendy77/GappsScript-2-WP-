@@ -24,3 +24,17 @@
 //function dupUI(){
 //function IDUI(){
 // and idcheck -- - checks id of active sheet 
+
+
+// TFSORT/
+//function fileFindr()
+//function dupLIVEcheck(){
+    // Duplicate Check
+//function duprCheck(){
+    // runs for MAX_ROWS
+     // Duplicate Check of sheet PARAM
+//function hideContentCol(id){
+ 
+//function AUTOCheck(ssid){
+    // PROVIDE A SHEET ID, THIS WILL RUN DUPLICATE CHECK
+        // --> RETURNS:  LINES, tagged, NOTTAGGED, n/a-tagged, dupe or 0

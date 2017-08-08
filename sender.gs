@@ -1,21 +1,5 @@
-var LASTLIVE = 8;   // LAST line of posts to send on ov/sheet
-
-//var OV_SHHFNR = '1cX9EMq2Kh6QJMQP65KZ1RkKms4iZiwmonVtLNltsGgw';
-var URLTOSEND = 'customkitsworldwide.com';
-
-// ckww
-var ckwwSHEETID = '1NhyycmyuW-EQmBK6IuvRzDYknD2ubDZxj9sDJ1qG3zs';
-// gov
-var govSHEETID = '1Ms2LnTd6N4GNRWqXkRT3JC2jjmbkqZLIHWkxAZ8LwwY';
-// fnr
-var fnSHEETID = '1MeOzGG65z6lChkRfd5tgxIWyRaLPZsZGc868Awpf0vw';
-// orgBiz sheet
-var obSHEETID = '1PbbruGcceDl6M8xWsXWPom1TB5YmyzcQoKNeNm-XoaQ';
- // vape sheet
-var vaSHEETID = '1brr5Dlu1NCXkqdJgVLn5-a7aZSmO_iA2XCH9EtQ4Jqg';
-
-
-var ID = 'ckww';
+var LASTLIVE = 6;   // LAST line of posts to send on ov/sheet
+var URLTOSEND = 'organisemybiz.com';
 
 function sendLine() {
  var overview = SpreadsheetApp.getActiveSpreadsheet(); 
@@ -32,6 +16,8 @@ var range = newSH.getRange(lineGoin,7, 1, 9);
 var data = range.getValues();  for (var i = 0; i < data.length; i++){ 
     var rowData = data[i];  
  
+  var ID = 'orgbiz'; 
+
   var post_title = rowData[1]; var desc = rowData[2];  var articleUrl = rowData[3]; var category = rowData[4];  
     var source = rowData[5];  var image = rowData[6];  var tags = rowData[8];
     }    
@@ -109,7 +95,6 @@ var newSH = overview.getSheetByName("live");
     var lineIn = newSH.getRange(line,8,1,8).setValues(rngP);
   var results = AUTOCheck(li);
     var lineIn = newSH.getRange(line,4,1,4).setValues([results]);
-  return (li);
 }
 
 function ref(line){
@@ -125,7 +110,6 @@ var newSH = overview.getSheetByName("live");
        }
     var rngP = sss.getRange(2,1,1,8).getValues();
     var lineIn = newSH.getRange(line,8,1,8).setValues(rngP);
-  return (li);
 }
 
 function getALLfiveLines(){
