@@ -29,17 +29,22 @@ function onOpen() {
   
 function linerefill() {
    var ui = SpreadsheetApp.getUi();
- var response = SpreadsheetApp.getActiveRange();
-  ui.prompt('doing now'); ///, ui.ButtonSet.YES_NO);
+ var response = SpreadsheetApp.getActiveSheet();
+
+  ui.prompt('line and YES or NO for all lines', ui.ButtonSet.YES_NO); ///, ui.ButtonSet.YES_NO);
  // Process the user's response.
-// if (response.getSelectedButton() == ui.Button.YES) {
-//var resyy = response.getResponseText();
-//     var resfill = ref(resyy);
-/// } else if (response.getSelectedButton() == ui.Button.NO) {
-//   for (var r=2;r<=LASTLIVE;r++){
-  //var lin= r; var res = lin(r);
-// }  
- 
+ if (response.getSelectedButton() == ui.Button.YES) {
+var resyy = response.getResponseText();
+     var resfill = ref(resyy);
+ } else if (response.getSelectedButton() == ui.Button.NO) {
+   for (var r=2;r<=LASTLIVE;r++){
+var res = ref(r);
+     var nextSht = SpreadsheetApp.openById(res);
+     var name = nextSht.getName();var url = nextSht.getUrl();
+     var tthhh = ([name,url]);
+       var the = response.getRange(r, 1,1,2).setValues(tthhh); 
+ }  
+ }
 }
 
 // Returns true if the cell where cellData was read from is empty.
@@ -81,6 +86,7 @@ var res = AUTOJUNEfiledupCheck(response.getResponseText());
 function idcheck(){
     var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
 var id = spreadsheet.getId();
+  Logger.log(id);
   var res11 = ([id]);
      return (res11);
 }

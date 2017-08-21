@@ -1,9 +1,11 @@
-var LASTLIVE = 6;   // LAST line of posts to send on ov/sheet
-
-// orgBiz sheet
+var LASTLIVE = 10;   // LAST line of posts to send on ov/sheet
 var FOLDER = 'IFTTT';
-var SHEETNAME = "live";
-var SHEETID = '1PbbruGcceDl6M8xWsXWPom1TB5YmyzcQoKNeNm-XoaQ';
+var SHEETNAME = "fnrALL";
+
+// fnr
+var fnSHEETID = '1MeOzGG65z6lChkRfd5tgxIWyRaLPZsZGc868Awpf0vw';
+// orgBiz sheet
+var obSHEETID = '1PbbruGcceDl6M8xWsXWPom1TB5YmyzcQoKNeNm-XoaQ';
  
 function fileChecker(){
   // 
@@ -20,8 +22,8 @@ function fileChecker(){
         var nam = spreadsheet.getName();    
        var url = spreadsheet.getUrl();
            var thrtow = ([lastEx,nam,uuu,url]);
-  var overview = SpreadsheetApp.getActiveSpreadsheet()    
-var newSH = overview.getSheetByName('orgbizALL');
+  var overview = SpreadsheetApp.openById(fnSHEETID);    
+var newSH = overview.getSheetByName(SHEETNAME);
   var newSHc = newSH.getRange(lastEx, 1, 1, 4).setValues([thrtow]);
            lastEx++;
           }
@@ -97,14 +99,14 @@ function checkLive() {
 
 function checkAll() {
 // READS IDs from SHEETNAME and RUNS AUTOcheckNumNTags
-var overview = SpreadsheetApp.openById(SHEETID); 
+var overview = SpreadsheetApp.openById(fnSHEETID); 
  var sheet = overview.getSheetByName(SHEETNAME);
 
   var check = sheet.getRange(2,3,5,1).getValues();
 for (var t=1;t<5;t++){
   var ssid = check[t];  
   var results = AUTOcheckNumNTags(ssid);
-var thiss = sheet.getRange((t+1),4,1,1).setValues([results]);
+var thiss = sheet.getRange((t+1),4,1,1).setValue(results);
 }
 }
 
