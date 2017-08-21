@@ -27,7 +27,7 @@ var data = range.getValues();  for (var i = 0; i < data.length; i++){
    return Logger.log('error NO TITLE OR CONTENT'); 
    }
   if ((!desc) && (post_title)){
-  desc = '[embedly]'+articleUrl+'[/embedly]<br>'+post_title +'<br> Posted by ' + source + ' ' + tags;
+  desc = '[embedyt]'+articleUrl+'[/embedyt] <br>'+post_title +'<br> Posted by ' + source + ' ' + tags;
  } 
  if (tags == 'N/A'){
  tags = category + source;
